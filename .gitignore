@@ -5,3 +5,4 @@ index.db
 docs/node_modules/
 docs/.vitepress/dist/
 docs/.vitepress/cache/
+docs/package-lock.json.bak

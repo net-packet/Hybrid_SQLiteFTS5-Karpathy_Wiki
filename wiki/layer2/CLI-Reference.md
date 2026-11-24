@@ -102,7 +102,7 @@ python3 doclib.py reindex -c office-works
 
 Six structural checks: broken link, orphan page, missing from `index.md`,
 citation to a missing raw file, page with no citation, duplicate title.
-Exit code `1` when there are issues. See [Wiki-Lint](Wiki-Lint).
+Exit code `1` when there are issues. See [Wiki-Lint](../layer3/Wiki-Lint).
 
 ### `graph [-c COLLECTION]`
 
