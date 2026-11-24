@@ -2,7 +2,4 @@ __pycache__/
 *.pyc
 .venv/
 index.db
-docs/node_modules/
-docs/.vitepress/dist/
-docs/.vitepress/cache/
-docs/package-lock.json.bak
+docs/

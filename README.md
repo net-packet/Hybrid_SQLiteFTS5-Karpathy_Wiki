@@ -201,16 +201,25 @@ That is condition 5, and it is the one that breaks silently when the docs drift.
 
 ## Documentation
 
-The site is generated from `wiki/` plus four hand-written guides, in two
-languages:
+The site is **generated from `wiki/`** — every page there becomes a page on the
+site. There is no second copy of the docs to drift out of date, and `docs/` is
+not committed: CI rebuilds it from scratch on every push.
 
-| | English | فارسی |
-|---|---|---|
-| Install | [guide/install](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/guide/install) | [fa/guide/install](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/fa/guide/install) |
-| First ingest | [guide/ingest](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/guide/ingest) | [fa/guide/ingest](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/fa/guide/ingest) |
-| CLI | [guide/cli](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/guide/cli) | [fa/guide/cli](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/fa/guide/cli) |
-| Architecture | [guide/architecture](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/guide/architecture) | [fa/guide/architecture](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/fa/guide/architecture) |
-| Reference (30 pages) | [/reference/Home](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/reference/Home) | — |
+| Page | |
+|---|---|
+| Home | [/reference/Home](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/reference/Home) |
+| Install | [/reference/layer3/Install-Quick](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/reference/layer3/Install-Quick) |
+| Ingest — the nine steps | [/reference/layer3/Ingest-Workflow](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/reference/layer3/Ingest-Workflow) |
+| CLI | [/reference/layer2/CLI-Reference](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/reference/layer2/CLI-Reference) |
+| Architecture | [/reference/layer1/Why-Hybrid](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/reference/layer1/Why-Hybrid) |
+| Repair | [/reference/layer4/Debug-Playbook](https://net-packet.github.io/Hybrid_SQLiteFTS5-Karpathy_Wiki/reference/layer4/Debug-Playbook) |
+
+To build it locally:
+
+```bash
+python3 tools/build_docs.py          # wiki/ -> docs/
+cd docs && npm ci && npm run docs:build
+```
 
 Where to start in the repo:
 
@@ -226,12 +235,13 @@ src/         doclib.py (the only executable), setup.py, schema.sql
 template/    what setup.py copies into a new archive
 demo/        synthetic seed documents + recorded expected output
 wiki/        32 pages: why, how it works, how to install, how to repair
-docs/        VitePress site (EN at /, FA at /fa/)
-tools/       build_docs.py — generates docs/reference from wiki/
+tools/       build_docs.py (wiki/ -> docs/) and site/ (the VitePress shell)
+docs/        generated — not committed; CI builds it from wiki/
 ```
 
-`docs/reference/` is **generated**. Edit `wiki/`, then run
-`python3 tools/build_docs.py`. CI fails the build if the two disagree.
+`docs/` is **generated and gitignored**. Edit `wiki/`, then run
+`python3 tools/build_docs.py`. CI rebuilds it from scratch, so there is nothing
+that can fall out of sync.
 
 ## Credits
 

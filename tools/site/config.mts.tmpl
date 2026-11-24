@@ -1,0 +1,28 @@
+import { defineConfig } from 'vitepress'
+
+// GENERATED FILE — do not edit. Source: tools/site/config.mts.tmpl
+// Rebuilt by tools/build_docs.py. Edit the template, not the output.
+
+const repo = 'https://github.com/net-packet/Hybrid_SQLiteFTS5-Karpathy_Wiki'
+
+// GitHub Pages serves a project site from /<repo>/. Without `base`, every asset
+// and internal link is emitted as /assets/... and resolves to the domain root,
+// which is a 404. This must match the repository name.
+const base = '/Hybrid_SQLiteFTS5-Karpathy_Wiki/'
+
+export default defineConfig({
+  base,
+  cleanUrls: true,
+  title: 'Hybrid Archive',
+  description: 'SQLite FTS5 + Karpathy-style wiki for Persian and English documents',
+  themeConfig: {
+    socialLinks: [{ icon: 'github', link: repo }],
+    nav: [
+      { text: 'Install', link: '/reference/layer3/Install-Quick' },
+      { text: 'Ingest', link: '/reference/layer3/Ingest-Workflow' },
+      { text: 'Reference', link: '/reference/Home' },
+      { text: 'Repair', link: '/reference/layer4/Debug-Playbook' }
+    ],
+    sidebar: {{SIDEBAR}}
+  }
+})

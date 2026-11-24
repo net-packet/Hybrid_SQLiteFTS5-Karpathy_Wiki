@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: Install
-      link: /guide/install
+      link: /reference/layer3/Install-Quick
     - theme: alt
       text: Why hybrid?
       link: /reference/layer1/Why-Hybrid
@@ -21,5 +21,5 @@ features:
   - title: Every number has a source
     details: A citation is file plus page. Lint fails a page with no citation. Six months later you can still check it.
   - title: An agent can install it
-    details: AGENTS.md is 67 lines. Clone, run setup.py, expect VERIFY PASS. No questions needed.
+    details: AGENTS.md is the entry point. Clone, run setup.py, expect VERIFY PASS. No questions needed.
 ---

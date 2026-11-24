@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'wiki/**'
-      - 'docs/**'
+      - 'tools/site/**'
       - 'tools/build_docs.py'
       - '.github/workflows/docs.yml'
   workflow_dispatch:
@@ -29,17 +29,19 @@ jobs:
         with:
           python-version: '3.12'
 
-      # docs/reference/ is generated from wiki/ — never edit it by hand.
-      - name: Sync wiki -> docs/reference
+      # docs/ is generated and gitignored. It is built here from wiki/ and
+      # tools/site/ on every run — there is nothing committed to fall out of
+      # date, so there is no staleness check to make.
+      - name: Build docs from wiki/
         run: python3 tools/build_docs.py
 
-      - name: Fail if generated docs are stale
+      - name: Fail if docs/ was not produced
         run: |
-          if [ -n "$(git status --porcelain docs/reference)" ]; then
-            echo "docs/reference is out of date. Run: python3 tools/build_docs.py"
-            git status --porcelain docs/reference
-            exit 1
-          fi
+          test -f docs/index.md || { echo "docs/index.md missing"; exit 1; }
+          test -f docs/.vitepress/config.mts || { echo "config missing"; exit 1; }
+          n=$(find docs/reference -name '*.md' | wc -l)
+          echo "pages: $n"
+          test "$n" -gt 0 || { echo "no reference pages built"; exit 1; }
 
       - uses: actions/setup-node@v4
         with:
