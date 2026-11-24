@@ -12,8 +12,9 @@ python3 ~/archive/doclib.py <command> [args]
 
 ### `add <path> [-c COLLECTION]`
 
-Adds a file or a directory. The path must be inside
-`collections/<name>/raw/` — see [Err-Outside-Raw](../layer4/Err-Outside-Raw).
+Adds a file or a directory. The path must be inside `collections/<name>/` —
+`raw/` for sources, `wiki/` for the pages you write. A path outside the
+collection raises `ValueError` — see [Err-Outside-Raw](../layer4/Err-Outside-Raw).
 
 ```
 افزودن به «office-works» (1 فایل):

@@ -1,4 +1,4 @@
-# Walkthrough — one document, four commands
+# Walkthrough — one document, five commands
 
 No theory. A single Persian contract, from a file on disk to a searchable,
 cited page.
@@ -70,6 +70,18 @@ text**. That is the whole output contract.
 | زمان پاسخ اضطراری | ۴ ساعت | ص ۳ |
 ```
 
+## 5 — index the page too
+
+```bash
+python3 ~/archive/doclib.py add \
+  ~/archive/collections/office-works/wiki/sources/contract-1405.md \
+  -c office-works
+```
+
+**This step is the one that gets skipped.** The page exists on disk and looks
+finished, but until it is indexed `search` cannot find it — and `lint` will not
+warn you, because it checks structure, not searchability.
+
 Then one row in `wiki/index.md` and one in `wiki/log.md`, then:
 
 ```bash
@@ -89,10 +101,10 @@ system.
 
 ## The next document
 
-Same four steps. The only judgement call is step 1: which collection. If the
+Same five steps. The only judgement call is step 1: which collection. If the
 answer is not obvious, stop and ask — a document in the wrong collection is
 worse than one that is not indexed yet.
 
-This page shows one document with real output. The procedure itself — all nine
-steps, plus audio, images and web pages — is
+This page shows one document with real output, in five commands. The procedure
+itself — all nine steps, plus audio, images and web pages — is
 [Ingest-Workflow](layer3/Ingest-Workflow). Where the two differ, that page wins.

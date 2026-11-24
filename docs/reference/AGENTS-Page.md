@@ -19,7 +19,7 @@ file should be able to:
 |---|---|
 | Install | three commands, and the exact success line |
 | What `--verify` checks | so a failure is interpretable, not mysterious |
-| After install | the four commands it will actually use |
+| After install | the five commands it will actually use |
 | Where to look when something breaks | a symptom → page table |
 | Hard rules | the four things that must never happen |
 | What this is not | prevents it from adding embeddings "to help" |

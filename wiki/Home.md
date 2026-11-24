@@ -16,7 +16,7 @@ Most document tools collapse these into one. That is why they cannot answer
 | If you want to… | Read |
 |---|---|
 | install it | [Install-Quick](layer3/Install-Quick) |
-| see it work in four commands | [Walkthrough-Simple](Walkthrough-Simple) |
+| see it work in five commands | [Walkthrough-Simple](Walkthrough-Simple) |
 | understand why it is built this way | [Why-Hybrid](layer1/Why-Hybrid) |
 | know what it deliberately does not do | [Non-Goals](layer1/Non-Goals) |
 | fix something that broke | [Debug-Playbook](layer4/Debug-Playbook) |

@@ -36,7 +36,7 @@ If it is not, the install failed — do not report success. Read
 ```bash
 export DOCLIB_ROOT=~/archive
 python3 ~/archive/doclib.py collections                    # what exists
-python3 ~/archive/doclib.py add <path-inside-raw/> -c <collection>
+python3 ~/archive/doclib.py add <path-inside-collection/> -c <collection>
 python3 ~/archive/doclib.py search "query"
 python3 ~/archive/doclib.py show <file_id>                 # full text to cite from
 python3 ~/archive/doclib.py lint -c <collection>           # after writing a page

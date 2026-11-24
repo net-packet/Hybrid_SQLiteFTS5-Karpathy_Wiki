@@ -72,7 +72,8 @@ print('inside raw:', raw in p.parents)"
 
 ## Adding a whole directory
 
-`add` accepts a directory, and it must also be inside `raw/`:
+`add` accepts a directory, and it must also be inside the collection —
+`raw/files/` for a batch of sources:
 
 ```bash
 mkdir -p ~/archive/collections/office-works/raw/files/batch-1405-08

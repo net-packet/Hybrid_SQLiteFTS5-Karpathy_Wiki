@@ -124,25 +124,33 @@ Goal: zero heavy-mixed lines outside tables and code blocks. Doubling file size 
 
 **Preconditions:** detect topic → propose **one** collection → get approval. Nothing is copied before approval. Full per-step detail and source-type pitfalls: `references/ingest-procedures.md`.
 
-1. فایل را به پوشه درست `raw/` کپی کن
+1. موضوع را تشخیص بده و مجموعه را پیشنهاد بده — **تأیید بگیر**
+   Identify topic, propose collection — **get approval**
+2. فایل را به پوشه درست `raw/` کپی کن
    Copy file to correct `raw/` folder
-2. ایندکس کن:
+3. ایندکس کن:
    ```bash
    python3 $DOCLIB_ROOT/doclib.py add <path> -c <collection>
    ```
    Index it
-3. صفحه ویکی بساز در `wiki/sources/<short-english-name>.md` — با قرارداد کامل (پایین)
+4. تأیید جستجو + خواندن تکه‌ای که ارجاع می‌دهی: `search "<کلیدواژه>"` بعد `show <file_id>`
+   Confirm search + read the chunk you will cite: `search` then `show`
+5. صفحه ویکی بساز در `wiki/sources/<short-english-name>.md` — با قرارداد کامل (پایین)
    Create wiki page at `wiki/sources/<short-english-name>.md` — full contract (below)
-4. **`doclib.py add` روی صفحه ویکی هم بزن** — وگرنه ویکی در `search` پیدا نمی‌شود
+6. **`doclib.py add` روی صفحه ویکی هم بزن** — وگرنه ویکی در `search` پیدا نمی‌شود
    **`doclib.py add` the wiki page too** — or wiki invisible to search
-5. به صفحه جدید در `wiki/index.md` لینک بده — وگرنه lint آن را یتیم می‌بیند
+7. به صفحه جدید در `wiki/index.md` لینک بده — وگرنه lint آن را یتیم می‌بیند
    Link in `wiki/index.md` — or lint marks it orphan
-6. `wiki/log.md` را آپدیت کن
+8. `wiki/log.md` را آپدیت کن
    Update `wiki/log.md`
-7. `python3 $DOCLIB_ROOT/doclib.py lint -c <collection>` بزن و ایرادها را درست کن
+9. `python3 $DOCLIB_ROOT/doclib.py lint -c <collection>` بزن و ایرادها را درست کن
    Run `lint`, fix all errors
-8. به کاربر گزارش بده
-   Report to user
+
+پس از `lint`، نتیجه را به کاربر گزارش بده — قالب در بخش «گزارش وضعیت به کاربر».
+After `lint`, report the result to the user — format in "Status Reporting".
+
+مرجع رسمی همین جریان در `wiki/layer3/Ingest-Workflow.md` است. این فهرست و آن صفحه باید **هم‌شماره** بمانند؛ اگر یکی را تغییر دادی، دیگری را همان جلسه همگام کن.
+The canonical version of this flow is `wiki/layer3/Ingest-Workflow.md`. This list and that page must stay **identically numbered**; change one, sync the other the same session.
 
 ## پردازش انواع منبع / Source Type Processing
 

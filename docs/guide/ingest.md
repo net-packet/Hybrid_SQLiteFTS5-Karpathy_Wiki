@@ -1,6 +1,9 @@
 # First ingest
 
-One file, four commands.
+One file, start to finish. This is the short path for a document whose topic is
+already clear. The full procedure — all nine steps, plus audio, images and web
+pages — is [Ingest workflow](/reference/layer3/Ingest-Workflow). Where the two
+differ, that page wins.
 
 ## 1 — place it under `raw/`
 
@@ -41,6 +44,18 @@ python3 ~/archive/doclib.py search "جریمه تاخیر"
 [office-works/contract-1405.pdf — ص 3]
   ...به ازای هر ساعت »تاخیر« ۰٫۵ درصد مبلغ ماهانه کسر می‌شود...
 ```
+
+Note what the output carries: **which file**, **which page**, **the original
+text**. That is the whole output contract.
+
+A snippet is one chunk (~200 characters). To **cite**, read the whole chunk:
+
+```bash
+python3 ~/archive/doclib.py show 1
+```
+
+Prints every chunk of `file_id=1` with its page. Quote from this, not from the
+snippet — a table or a list usually continues in the next chunk.
 
 ## 4 — write the page
 
