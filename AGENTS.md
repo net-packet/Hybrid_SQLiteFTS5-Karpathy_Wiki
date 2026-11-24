@@ -35,12 +35,27 @@ If it is not, the install failed — do not report success. Read
 
 ```bash
 export DOCLIB_ROOT=~/archive
+python3 ~/archive/doclib.py collections                    # what exists
 python3 ~/archive/doclib.py add <path-inside-raw/> -c <collection>
 python3 ~/archive/doclib.py search "query"
-python3 ~/archive/doclib.py show <file_id>
+python3 ~/archive/doclib.py show <file_id>                 # full text to cite from
+python3 ~/archive/doclib.py lint -c <collection>           # after writing a page
 ```
 
+`collections` printing nothing means `DOCLIB_ROOT` is wrong — check that before
+anything else.
+
 A file must live under `collections/<name>/raw/` before `add` accepts it.
+
+## Diagnosing before you fix
+
+```bash
+python3 ~/archive/doclib.py stats
+```
+
+Three numbers: files, chunks, and the per-collection split. If `files` has rows
+but `search` returns nothing, the FTS index is out of sync — that is
+`wiki/layer4/Err-FTS-Empty.md`, not a broken install.
 
 ## Where to look when something breaks
 
