@@ -20,6 +20,7 @@ Anything else means the install failed. Do not report success.
 ~/archive/
 ├── doclib.py            the only executable
 ├── SCHEMA.md            the rules, on one page
+├── SKILL.md             the full operating procedure (read before ingesting)
 ├── index.db             created empty, user_version = 100
 ├── references/          9 reference files
 └── collections/

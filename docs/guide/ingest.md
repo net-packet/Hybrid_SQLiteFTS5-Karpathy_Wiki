@@ -9,7 +9,8 @@ cp ~/Downloads/contract-1405.pdf \
    ~/archive/collections/office-works/raw/files/
 ```
 
-The path must be inside `collections/<name>/raw/`. `add` refuses anything else.
+The path must be inside `collections/<name>/`. `raw/` holds sources; `wiki/`
+holds the pages you write. A path outside the collection is refused.
 
 ## 2 — index it
 
@@ -58,7 +59,29 @@ python3 ~/archive/doclib.py search "جریمه تاخیر"
 | جریمه تاخیر | ۰٫۵٪ ماهانه، سقف ۱۰٪ | ص ۳ |
 ```
 
-Then one row in `wiki/index.md`, one in `wiki/log.md`, and:
+## 5 — index the wiki page too
+
+```bash
+python3 ~/archive/doclib.py add \
+  ~/archive/collections/office-works/wiki/sources/contract-1405.md \
+  -c office-works
+```
+
+**Without this the page is invisible to `search`.** It exists on disk and looks
+finished, but the index does not know about it. `lint` will not warn you —
+it checks structure, not searchability.
+
+Prove it:
+
+```bash
+python3 ~/archive/doclib.py search "قرارداد نگهداشت"
+```
+
+Two hits now: the PDF and the wiki page.
+
+## 6 — register and lint
+
+One row in `wiki/index.md`, one in `wiki/log.md`, then:
 
 ```bash
 python3 ~/archive/doclib.py lint -c office-works

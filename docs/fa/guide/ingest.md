@@ -9,8 +9,8 @@ cp ~/Downloads/contract-1405.pdf \
    ~/archive/collections/office-works/raw/files/
 ```
 
-مسیر باید داخل `collections/<name>/raw/` باشد. `add` هر مسیر دیگری را رد
-می‌کند.
+مسیر باید داخل `collections/<name>/` باشد. `raw/` منابع را نگه می‌دارد و
+`wiki/` صفحه‌هایی که می‌نویسی. مسیر بیرون از مجموعه رد می‌شود.
 
 ## ۲ — ایندکس کن
 
@@ -59,7 +59,29 @@ python3 ~/archive/doclib.py search "جریمه تاخیر"
 | جریمه تاخیر | ۰٫۵٪ ماهانه، سقف ۱۰٪ | ص ۳ |
 ```
 
-بعد یک ردیف در `wiki/index.md`، یک ردیف در `wiki/log.md`، و:
+## ۵ — صفحهٔ ویکی را هم ایندکس کن
+
+```bash
+python3 ~/archive/doclib.py add \
+  ~/archive/collections/office-works/wiki/sources/contract-1405.md \
+  -c office-works
+```
+
+**بدون این، صفحه در `search` پیدا نمی‌شود.** صفحه روی دیسک هست و تمام‌شده به
+نظر می‌رسد، ولی ایندکس از آن خبر ندارد. `lint` هم هشدار نمی‌دهد — چون ساختار
+را چک می‌کند، نه قابل‌جستجو بودن را.
+
+امتحانش کن:
+
+```bash
+python3 ~/archive/doclib.py search "قرارداد نگهداشت"
+```
+
+حالا دو نتیجه می‌گیری: PDF و صفحهٔ ویکی.
+
+## ۶ — ثبت و lint
+
+یک ردیف در `wiki/index.md`، یک ردیف در `wiki/log.md`، و بعد:
 
 ```bash
 python3 ~/archive/doclib.py lint -c office-works

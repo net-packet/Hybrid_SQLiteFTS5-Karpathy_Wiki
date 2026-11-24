@@ -20,6 +20,7 @@ VERIFY: PASS
 ~/archive/
 ├── doclib.py            تنها فایل اجرایی
 ├── SCHEMA.md            قواعد، در یک صفحه
+├── SKILL.md             رویهٔ کامل کار (قبل از هر ingest بخوان)
 ├── index.db             خالی، user_version = 100
 ├── references/          ۹ فایل مرجع
 └── collections/

@@ -9,7 +9,7 @@ python3 ~/archive/doclib.py <command> [args]
 
 | Command | Does |
 |---|---|
-| `add <path> [-c COLL]` | index a file or directory inside `raw/` |
+| `add <path> [-c COLL]` | index a file or directory inside the collection — `raw/` for sources, `wiki/` for pages |
 | `rm <file_id>` | remove from the index; the file in `raw/` is untouched |
 | `reindex [-c COLL]` | re-extract every file from `raw/` |
 

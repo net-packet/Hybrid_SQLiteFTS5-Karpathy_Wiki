@@ -67,6 +67,26 @@ query ──match_fold()──► tokens ──"a"* AND "b"*──► FTS5 MATCH
 The query goes through the same `match_fold()` as the documents. That is the
 only reason `تأخیر` finds `تاخیر`.
 
+## The wiki is indexed too
+
+A wiki page is a source like any other. After writing
+`wiki/sources/contract-1405.md`, run `add` on it:
+
+```bash
+python3 ~/archive/doclib.py add \
+  ~/archive/collections/office-works/wiki/sources/contract-1405.md -c office-works
+```
+
+Its `rel_path` becomes `wiki/sources/contract-1405.md` — the second branch of
+`rel_path_of()`, which stores anything inside the collection relative to the
+collection root. Without this step the page is invisible to `search`, and
+nothing warns you: `lint` checks structure, not searchability.
+
+Why index the wiki at all? Because the two paths are meant to reinforce each
+other. A search for a term should surface both the evidence and the
+interpretation of it — otherwise you read the contract and never learn that a
+wiki page already noticed a contradiction in it.
+
 ## Non-goals
 
 No embeddings, no vector search, no local OCR, no GUI, no multi-user, no
