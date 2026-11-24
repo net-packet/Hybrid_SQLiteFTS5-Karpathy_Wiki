@@ -133,10 +133,10 @@ Goal: zero heavy-mixed lines outside tables and code blocks. Doubling file size 
    Index it
 3. صفحه ویکی بساز در `wiki/sources/<short-english-name>.md` — با قرارداد کامل (پایین)
    Create wiki page at `wiki/sources/<short-english-name>.md` — full contract (below)
-4. به صفحه جدید در `wiki/index.md` لینک بده — وگرنه lint آن را یتیم می‌بیند
-   Link in `wiki/index.md` — or lint marks it orphan
-5. **`doclib.py add` روی صفحه ویکی هم بزن** — وگرنه ویکی در `search` پیدا نمی‌شود
+4. **`doclib.py add` روی صفحه ویکی هم بزن** — وگرنه ویکی در `search` پیدا نمی‌شود
    **`doclib.py add` the wiki page too** — or wiki invisible to search
+5. به صفحه جدید در `wiki/index.md` لینک بده — وگرنه lint آن را یتیم می‌بیند
+   Link in `wiki/index.md` — or lint marks it orphan
 6. `wiki/log.md` را آپدیت کن
    Update `wiki/log.md`
 7. `python3 $DOCLIB_ROOT/doclib.py lint -c <collection>` بزن و ایرادها را درست کن

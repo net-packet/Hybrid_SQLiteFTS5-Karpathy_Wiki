@@ -73,7 +73,7 @@ but `search` returns nothing, the FTS index is out of sync — that is
 ## The skill and the references
 
 `SKILL.md` sits in the archive root. It is the full operating procedure — the
-eight-step ingest, the two query paths, the wiki page contract, the Groq
+nine-step ingest, the two query paths, the wiki page contract, the Groq
 pitfalls, the living-source rules. **Read it before your first ingest.**
 
 ```bash

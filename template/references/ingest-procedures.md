@@ -4,24 +4,28 @@
 >
 > Full ingest flow details. When in conflict with `SKILL.md`, **`SKILL.md` wins.**
 
-## جریان کامل ingest (۸ مرحله)
+## جریان کامل ingest (۹ مرحله)
 
-Complete ingest flow (8 steps)
+Complete ingest flow (9 steps)
+
+> مرجع رسمی این جریان `wiki/layer3/Ingest-Workflow.md` است. این جدول خلاصهٔ آن است.
+> The canonical version of this flow is `wiki/layer3/Ingest-Workflow.md`. This table is a summary of it.
 
 | # | اقدام / Action | دستور / Command |
 |---|---|---|
-| 1 | کپی به پوشهٔ درست `raw/` / Copy to correct `raw/` folder | `cp <file> /opt/data/documents/collections/<coll>/raw/<type>/` |
-| 2 | ایندکس فایل خام / Index raw file | `python3 /opt/data/documents/doclib.py add <path> -c <coll>` |
-| 3 | ساخت صفحهٔ ویکی / Create wiki page | `wiki/sources/<short-english-name>.md` |
-| 4 | لینک در `index.md` / Link in `index.md` | به صفحهٔ جدید لینک بده، وگرنه **یتیم** می‌شود |
-| 5 | ایندکس صفحهٔ ویکی / Index wiki page | `doclib.py add <wiki-page-path> -c <coll>` — **حیاتی** |
-| 6 | آپدیت `log.md` / Update `log.md` | منبع + تاریخ + اعداد کلیدی |
-| 7 | اجرای `lint` / Run `lint` | `doclib.py lint -c <coll>` — **صفر خطا** |
-| 8 | گزارش به کاربر / Report | `file_id` + مسیر ویکی + اعداد |
+| 1 | تشخیص موضوع / Identify topic | — |
+| 2 | پیشنهاد + تأیید مجموعه / Propose + confirm collection | — |
+| 3 | کپی به پوشهٔ درست `raw/` / Copy to correct `raw/` folder | `cp <file> $DOCLIB_ROOT/collections/<coll>/raw/<type>/` |
+| 4 | ایندکس فایل خام / Index raw file | `python3 $DOCLIB_ROOT/doclib.py add <path> -c <coll>` |
+| 5 | تأیید جستجو + خواندن تکه / Confirm search + read the chunk | `search "<کلیدواژه>"` سپس `show <file_id>` |
+| 6 | ساخت صفحهٔ ویکی / Create wiki page | `wiki/sources/<short-english-name>.md` |
+| 7 | ایندکس صفحهٔ ویکی / Index wiki page | `doclib.py add <wiki-page-path> -c <coll>` — **حیاتی** |
+| 8 | لینک در `index.md` + `log.md` / Link in `index.md` + `log.md` | به صفحهٔ جدید لینک بده، وگرنه **یتیم** می‌شود |
+| 9 | اجرای `lint` / Run `lint` | `doclib.py lint -c <coll>` — **صفر خطا** |
 
-**ترتیب ۴ و ۵ الزامی است:** ابتدا `index.md`، بعد `add` روی صفحهٔ ویکی. اگر برعکس شود، `lint` صفحه را «در index است ولی یتیم» می‌بیند.
+**مرحلهٔ ۷ را فراموش نکن:** صفحه روی دیسک هست و تمام‌شده به نظر می‌رسد، ولی تا ایندکس نشود `search` پیدایش نمی‌کند. `lint` هم هشدار نمی‌دهد — ساختار را چک می‌کند، نه قابل‌جستجو بودن را.
 
-Steps 4 and 5 must stay in this order: `index.md` first, then `add` the wiki page. Reversed, `lint` reports the page as indexed-but-orphan.
+**Do not skip step 7:** the page exists on disk and looks finished, but until it is indexed `search` cannot find it. `lint` will not warn you — it checks structure, not searchability.
 
 ## پیش‌نیاز قبل از مرحله ۱
 

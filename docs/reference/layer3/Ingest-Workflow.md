@@ -1,9 +1,9 @@
 # Ingest workflow — the reference
 
-[First-Ingest](First-Ingest.md) walks one file. This page is the full procedure,
-including the four non-document source types.
+**This is the only procedure.** Every other page that describes ingest defers to
+this one; if something disagrees with this page, this page wins.
 
-## The eight steps
+## The nine steps
 
 | # | Step | Who does it |
 |---|---|---|
@@ -11,7 +11,7 @@ including the four non-document source types.
 | 2 | propose a collection, get confirmation | agent asks, user answers |
 | 3 | place the file under `raw/` | `cp` — never edit it afterwards |
 | 4 | `doclib.py add <raw path> -c <collection>` | one command |
-| 5 | `doclib.py search "<keyword>"` to confirm | one command |
+| 5 | `doclib.py search` to confirm, `show` to read the chunk you will cite | two commands |
 | 6 | write `wiki/sources/<slug>.md` with citations | human or agent |
 | 7 | **`doclib.py add <wiki page> -c <collection>`** | one command — **do not skip** |
 | 8 | register in `wiki/index.md` and `wiki/log.md` | two line edits |
@@ -20,6 +20,139 @@ including the four non-document source types.
 Step 7 is the one that gets forgotten. The page exists on disk and looks
 finished, but until it is indexed `search` cannot find it — and `lint` does not
 check searchability, only structure.
+
+Step 1 has its own page: [Collections](Collections.md) lists what belongs in
+each one. If no collection fits, **stop and ask** — do not create one on the fly.
+
+## What each command prints
+
+### Step 4 — `add` the raw file
+
+```bash
+export DOCLIB_ROOT=~/archive
+python3 ~/archive/doclib.py add \
+  ~/archive/collections/office-works/raw/files/contract-1405.pdf \
+  -c office-works
+```
+
+```
+✓ افزوده شد: contract-1405.pdf → 14 تکه (file_id=1)
+```
+
+`14 تکه` means the extractor found text. **`0` means it found none** — a scanned
+PDF with no text layer. Do not install OCR; read the pages as images instead
+(see the images section below).
+
+If instead you see `قبلاً افزوده شده`, the `sha256` matched an existing row.
+Nothing was duplicated — that is the dedupe working, not an error.
+
+### Step 5 — confirm, then read
+
+```bash
+python3 ~/archive/doclib.py search "جریمه تاخیر"
+```
+
+```
+2 نتیجه برای «جریمه تاخیر»:
+
+[office-works/contract-1405.pdf — ص 3]
+  ...در صورت تاخیر در پاسخ اضطراری، به ازای هر ساعت »تاخیر« ۰٫۵ درصد...
+```
+
+Note what the output carries: **which file**, **which page**, **the original
+text**. That is the whole output contract.
+
+Nothing back but step 4 succeeded? The FTS table did not receive the rows — see
+[Err-FTS-Empty](../layer4/Err-FTS-Empty.md).
+
+`search` gives you a snippet. To cite, you need the full chunk:
+
+```bash
+python3 ~/archive/doclib.py show 1
+```
+
+Prints every chunk of `file_id=1` with its page or index. **This is what you
+quote from** — not the search snippet, which is truncated.
+
+### Step 6 — write the page
+
+`collections/office-works/wiki/sources/contract-1405.md`:
+
+```markdown
+# قرارداد نگهداشت ۱۴۰۵
+
+**نوع:** قرارداد · **تاریخ:** ۱۴۰۵/۰۱/۰۱ · **منبع:** [contract-1405.pdf](../../raw/files/contract-1405.pdf)
+
+## خلاصه
+...
+
+## اعداد کلیدی
+
+| مورد | مقدار | ارجاع |
+|---|---|---|
+| مبلغ کل | ۴۸۰,۰۰۰,۰۰۰ ریال | ص ۱ |
+| جریمه تاخیر | ۰٫۵٪ ماهانه، سقف ۱۰٪ | ص ۳ |
+
+## نکات
+...
+```
+
+Every number carries a page. **No page, no number** — that is the rule that makes
+the wiki checkable six months later. The full shape, the four rules, and the
+`concepts/` variant are in [Wiki-Page-Contract](Wiki-Page-Contract.md).
+
+### Step 7 — index the wiki page too
+
+```bash
+python3 ~/archive/doclib.py add \
+  ~/archive/collections/office-works/wiki/sources/contract-1405.md \
+  -c office-works
+```
+
+The wiki is indexed as a source like any other file — `rel_path` becomes
+`wiki/sources/contract-1405.md` instead of `files/contract-1405.pdf`.
+
+**Without this the page is invisible to `search`.** This is not optional and it
+is easy to forget, because the page already exists on disk and looks finished.
+It is not finished until `search` can find it.
+
+Verify — you should now get **two** hits, the PDF and the page:
+
+```bash
+python3 ~/archive/doclib.py search "قرارداد نگهداشت"
+```
+
+### Step 8 — register it
+
+One row in `collections/office-works/wiki/index.md`:
+
+```markdown
+| 1 | [contract-1405](sources/contract-1405) | قرارداد | 2026-11-24 |
+```
+
+A page not listed here and not linked from anywhere else is an **orphan**, and
+`lint` will say so. Read the existing `index.md` first — see
+[the `index.md` trap](#the-indexmd-trap) below.
+
+One line in `collections/office-works/wiki/log.md`:
+
+```markdown
+| 2026-11-24 | ingest | contract-1405.pdf → 14 chunks |
+```
+
+### Step 9 — `lint`
+
+```bash
+python3 ~/archive/doclib.py lint -c office-works
+```
+
+Expect `✅ هیچ ایرادی پیدا نشد`. Six checks run: broken links, orphan pages,
+pages missing from `index.md`, citations to a raw file that does not exist,
+pages with no citation at all, and duplicate titles. See
+[Wiki-Lint](Wiki-Lint.md).
+
+`lint` checks **structure, not searchability**. A page that was never `add`ed
+passes lint and is still invisible to `search`.
 
 Step 2 is not optional. A document in the wrong collection is worse than an
 unindexed document, because it will be found in the wrong context later.
@@ -182,3 +315,22 @@ row with the same number of pipes.
 | create a collection without asking | wrong-collection documents are worse than none |
 | write a number in the wiki without a page reference | unverifiable |
 | run `reindex` while another process is writing | SQLite single-writer, it will block |
+
+## The whole thing, condensed
+
+```bash
+cp file.pdf ~/archive/collections/office-works/raw/files/
+python3 ~/archive/doclib.py add ~/archive/collections/office-works/raw/files/file.pdf -c office-works
+python3 ~/archive/doclib.py search "کلیدواژه"
+python3 ~/archive/doclib.py show <file_id>          # read the chunk you will cite
+# write wiki/sources/file.md
+python3 ~/archive/doclib.py add ~/archive/collections/office-works/wiki/sources/file.md -c office-works
+# update wiki/index.md and wiki/log.md
+python3 ~/archive/doclib.py lint -c office-works
+```
+
+Nine steps, two of which are writing prose. The rest is one command each.
+
+**The step everyone forgets is the second `add`.** A wiki page that is not
+indexed cannot be found, and nothing warns you — `lint` checks structure, not
+searchability.

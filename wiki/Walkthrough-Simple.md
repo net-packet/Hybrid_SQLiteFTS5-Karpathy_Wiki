@@ -93,5 +93,6 @@ Same four steps. The only judgement call is step 1: which collection. If the
 answer is not obvious, stop and ask — a document in the wrong collection is
 worse than one that is not indexed yet.
 
-See [First-Ingest](layer3/First-Ingest) for the full eight-step version, and
-[Ingest-Workflow](layer3/Ingest-Workflow) for audio, images and web pages.
+This page shows one document with real output. The procedure itself — all nine
+steps, plus audio, images and web pages — is
+[Ingest-Workflow](layer3/Ingest-Workflow). Where the two differ, that page wins.

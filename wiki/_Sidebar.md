@@ -19,7 +19,6 @@
 
 **Using it**
 - [Install-Quick](layer3/Install-Quick)
-- [First-Ingest](layer3/First-Ingest)
 - [Ingest-Workflow](layer3/Ingest-Workflow)
 - [Collections](layer3/Collections)
 - [Adding-Collection](layer3/Adding-Collection)
