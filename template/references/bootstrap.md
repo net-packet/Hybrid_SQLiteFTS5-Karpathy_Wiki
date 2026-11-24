@@ -12,30 +12,33 @@ Files in the main repo
 |---|---|
 | `doclib.py` | اسکریپت مستقل: extract/index/search/links/lint/graph / Standalone script: extract/index/search/links/lint/graph |
 | `requirements.txt` | `pypdf>=7.1.1`، `python-docx>=1.2.0`، `openpyxl>=3.1.5`، `python-pptx>=1.0.2` |
-| `setup.py` | اسکریپت راه‌اندازی / Bootstrap script: `python3 setup.py --root ~/my-archive` پوشه‌ها را می‌سازد، فایل‌ها را کپی می‌کند، `SCHEMA.md` و `COLLECTION.md`ها را می‌نویسد / creates dirs, copies files, writes `SCHEMA.md` + `COLLECTION.md` files |
+| `src/setup.py` | اسکریپت راه‌اندازی / Bootstrap script: `python3 src/setup.py --root ~/my-archive` پوشه‌ها را می‌سازد، فایل‌ها را کپی می‌کند، `SCHEMA.md` و `COLLECTION.md`ها را می‌نویسد / creates dirs, copies files, writes `SCHEMA.md` + `COLLECTION.md` files |
 | `README.md` | معرفی دوزبانهٔ پروژه با quick-start / Bilingual project overview with quick-start |
-| `wiki/*.md` | منابع markdown صفحات GitHub Wiki / Source markdown for GitHub Wiki pages |
+| `wiki/*.md` | ویکی چندلایه: why / how / use / repair (۳۳ صفحه) / Multi-layer wiki |
 
 ## جریان کاربر جدید
 
 New user workflow
 
 ```bash
-git clone https://github.com/net-packet/Hybrid_SQLite-Karpathy_Wiki.git
-cd Hybrid_SQLite-Karpathy_Wiki
-python3 setup.py --root ~/my-archive
-# Add GROQ_API_KEY to ~/.env
+git clone https://github.com/net-packet/Hybrid_SQLiteFTS5-Karpathy_Wiki.git
+cd Hybrid_SQLiteFTS5-Karpathy_Wiki
+python3 src/setup.py --root ~/my-archive --verify     # آخرین خط باید VERIFY: PASS باشد
 export DOCLIB_ROOT=~/my-archive
-python3 ~/my-archive/doclib.py add file.pdf -c office-works
+export GROQ_API_KEY=...                                # فقط برای صدا / audio only
+python3 ~/my-archive/doclib.py add ~/my-archive/collections/office-works/raw/files/file.pdf -c office-works
 ```
+
+اگر `VERIFY: PASS` نگرفتی، نصب نشده — `wiki/layer4/Debug-Playbook.md` را بخوان.
+If you did not get `VERIFY: PASS`, the install failed — read `wiki/layer4/Debug-Playbook.md`.
 
 ## گزینه‌های `setup.py`
 
 `setup.py` options
 
 ```bash
-python3 setup.py --root ~/my-archive --collections office-works maintenance-learning ai-learning
-python3 setup.py --root ~/custom --collections my-collection --skip-install
+python3 src/setup.py --root ~/my-archive --collections office-works maintenance-learning ai-learning
+python3 src/setup.py --root ~/custom --collections my-collection --skip-install
 ```
 
 ## `setup.py` چه می‌کند

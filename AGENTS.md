@@ -91,7 +91,6 @@ cat $DOCLIB_ROOT/SKILL.md
 | what `lint` checks, and what it cannot | `references/wiki-lint.md` |
 | installing a fresh archive | `references/bootstrap.md` |
 | packaging this as a portable repo | `references/portability-design.md` |
-| mirroring the archive to GitHub | `references/github-wiki-setup.md` |
 
 `SKILL.md` reads its root from `DOCLIB_ROOT` — no path is hardcoded, so it works
 wherever the archive was installed.

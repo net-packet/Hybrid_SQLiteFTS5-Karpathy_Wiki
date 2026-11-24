@@ -115,7 +115,6 @@ Goal: zero heavy-mixed lines outside tables and code blocks. Doubling file size 
 | نرمال‌سازی فارسی + FTS5 | `references/persian-normalization.md` | خطای فولدینگ یا ارقام فارسی در جستجو |
 | Lint ساختاری + محتوایی | `references/wiki-lint.md` | قبل از گزارش به کاربر |
 | بسته‌بندی آرشیو به‌عنوان قالب قابل انتقال | `references/portability-design.md` | کاربر پرسید «agent کسی دیگر هم بتواند همین سیستم را بسازد؟» یا طراحی repo تازه |
-| آینه کردن آرشیو روی GitHub Wiki | `references/github-wiki-setup.md` | فقط اگر کاربر خواست آرشیو را روی گیت‌هاب منتشر کند — برای استفادهٔ عادی لازم نیست |
 
 ## جریان ingest / Ingest Flow
 
