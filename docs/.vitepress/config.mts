@@ -2,7 +2,13 @@ import { defineConfig } from 'vitepress'
 
 const repo = 'https://github.com/net-packet/Hybrid_SQLiteFTS5-Karpathy_Wiki'
 
+// The site is served from /Hybrid_SQLiteFTS5-Karpathy_Wiki/ on GitHub Pages.
+// Without `base`, every asset and every internal link is emitted as /assets/...
+// and resolves to the domain root, which is a 404. This must match the repo name.
+const base = '/Hybrid_SQLiteFTS5-Karpathy_Wiki/'
+
 export default defineConfig({
+  base,
   cleanUrls: true,
   themeConfig: {
     socialLinks: [{ icon: 'github', link: repo }]
