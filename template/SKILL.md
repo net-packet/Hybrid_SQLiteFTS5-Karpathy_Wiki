@@ -74,6 +74,8 @@ $DOCLIB_ROOT/
    **Proposing ≠ deciding.** A unilateral proposal is not implicit approval. Never write "I won't ask, the fit is obvious" — ask, or state "default: X, object if wrong" and wait.
 8. **گزارش «انجام شد» فقط با شاهد واقعی.** قبل از گفتن «ویکی ساخته شد / فایل ایندکس شد / lint پاس شد» یا برعکس «ساخته نشده»، همان لحظه وضعیت دیسک را چک کن (فهرست پوشه با `search_files`، جستجوی متن در `index.md`، خروجی `lint`). تست موفق یک مرحله (استخراج PDF یا `add`) به معنی ساخته شدن کل صفحه ویکی نیست.
    **Report "done" only with fresh evidence.** Check the disk (`ls`, `grep` in `index.md`, `lint` output) immediately before claiming a page/file exists — or that it is missing. A passing extraction step is not a built wiki page.
+9. **`index.db` دورریختنی است.** اگر شک داری، پاکش کن و از `raw/` دوباره بساز. هرگز با SQLite دستی تعمیرش نکن.
+   **`index.db` is disposable.** If in doubt, delete it and rebuild from `raw/`. Never repair it by hand.
 
 ## زبان مراجع — دوزبانه با حفظ خوانایی / Reference Language — Bilingual, Readable
 

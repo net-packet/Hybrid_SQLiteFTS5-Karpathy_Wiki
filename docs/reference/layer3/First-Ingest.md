@@ -25,8 +25,11 @@ cp ~/Downloads/contract-1405.pdf \
 ```
 
 `raw/files/` for documents, `raw/web/` for saved pages, `raw/audio/` for
-recordings, `raw/images/` for screenshots. `doclib.py add` refuses a path
-outside `collections/<name>/raw/`.
+recordings, `raw/images/` for screenshots.
+
+`doclib.py add` accepts any path inside `collections/<name>/` — `raw/` for
+sources, and `wiki/` for the pages you write in step 6. A path outside the
+collection raises `ValueError` (see [Err-Outside-Raw](../layer4/Err-Outside-Raw.md)).
 
 ## Step 2 — add it to the index
 
@@ -100,7 +103,30 @@ Minimum shape:
 Every number carries a page. No page, no number — that is the rule that makes
 the wiki checkable six months later.
 
-## Step 6 — register it in `index.md`
+## Step 6 — index the wiki page too
+
+```bash
+python3 ~/archive/doclib.py add \
+  ~/archive/collections/office-works/wiki/sources/contract-1405.md \
+  -c office-works
+```
+
+**Without this the page is invisible to `search`.** The wiki is indexed as a
+source like any other file — `rel_path` becomes `wiki/sources/contract-1405.md`
+instead of `files/contract-1405.pdf`.
+
+This is not optional and it is easy to forget, because the page already exists
+on disk and looks finished. It is not finished until `search` can find it.
+
+Verify:
+
+```bash
+python3 ~/archive/doclib.py search "قرارداد نگهداشت"
+```
+
+You should now get **two** hits: the original PDF and the wiki page.
+
+## Step 7 — register it in `index.md`
 
 Add one row to `collections/office-works/wiki/index.md`:
 
@@ -111,7 +137,7 @@ Add one row to `collections/office-works/wiki/index.md`:
 A page not listed here and not linked from anywhere else is an **orphan**, and
 `lint` will say so.
 
-## Step 7 — log it
+## Step 8 — log it
 
 Append to `collections/office-works/wiki/log.md`:
 
@@ -119,7 +145,7 @@ Append to `collections/office-works/wiki/log.md`:
 | 2026-11-24 | ingest | contract-1405.pdf → 14 chunks |
 ```
 
-## Step 8 — lint
+## Step 9 — lint
 
 ```bash
 python3 ~/archive/doclib.py lint -c office-works
@@ -135,8 +161,14 @@ citation at all, and duplicate titles. See [Wiki-Lint](Wiki-Lint.md).
 cp file.pdf ~/archive/collections/office-works/raw/files/
 python3 ~/archive/doclib.py add ~/archive/collections/office-works/raw/files/file.pdf -c office-works
 python3 ~/archive/doclib.py search "کلیدواژه"
-# write wiki/sources/file.md, update wiki/index.md and wiki/log.md
+# write wiki/sources/file.md
+python3 ~/archive/doclib.py add ~/archive/collections/office-works/wiki/sources/file.md -c office-works
+# update wiki/index.md and wiki/log.md
 python3 ~/archive/doclib.py lint -c office-works
 ```
 
-Eight steps, two of which are writing prose. The rest is one command each.
+Nine steps, two of which are writing prose. The rest is one command each.
+
+**The step everyone forgets is the second `add`.** A wiki page that is not
+indexed cannot be found, and nothing warns you — `lint` checks structure, not
+searchability.

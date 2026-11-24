@@ -10,8 +10,20 @@ ValueError: '/tmp/x.md' is not in the subpath of '/tmp/archive/collections/offic
 
 ## What happened
 
-`rel_path_of()` stores the path **relative to `raw/`**. A path outside `raw/`
-has no such relative form, so `relative_to()` raises.
+`rel_path_of()` has two branches:
+
+```python
+raw = COLLECTIONS / collection / "raw"
+try:
+    return str(path.resolve().relative_to(raw.resolve()))          # inside raw/
+except ValueError:
+    return str(path.resolve().relative_to((COLLECTIONS / collection).resolve()))
+```
+
+A path inside `raw/` is stored relative to `raw/` (`files/x.pdf`). A path
+elsewhere **inside the collection** is stored relative to the collection root —
+which is how a wiki page gets `wiki/sources/x.md`. A path outside the collection
+entirely has no relative form, so the second `relative_to()` raises.
 
 This is a guard, not a bug — but it reports itself badly. A traceback instead of
 `این فایل داخل raw نیست` is a rough edge, and it is documented here rather than

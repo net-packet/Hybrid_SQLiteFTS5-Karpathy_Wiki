@@ -45,7 +45,9 @@ python3 ~/archive/doclib.py lint -c <collection>           # after writing a pag
 `collections` printing nothing means `DOCLIB_ROOT` is wrong — check that before
 anything else.
 
-A file must live under `collections/<name>/raw/` before `add` accepts it.
+`add` accepts any path inside `collections/<name>/` — `raw/` for sources, and
+`wiki/` for the pages you write. **Index the wiki page too**, or `search` cannot
+find it.
 
 ## Diagnosing before you fix
 
@@ -97,10 +99,16 @@ wherever the archive was installed.
 
 ## Hard rules
 
+The full list — nine rules — is in `SKILL.md` under "Hard Rules". These four are
+the ones that matter in every session:
+
 1. **Never modify anything under `raw/`.** It is the source of truth.
 2. **Never add a file without the user's confirmation** — propose a collection, wait.
 3. **Every number in the wiki needs a citation** (file + page). No citation, no number.
-4. **`index.db` is disposable.** If in doubt, delete it and re-add from `raw/`.
+4. **`index.db` is disposable.** If in doubt, delete it and rebuild from `raw/`.
+
+Do not treat this as the complete list. When `SKILL.md` and this file disagree,
+`SKILL.md` wins.
 
 ## What this is not
 
