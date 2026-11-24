@@ -68,6 +68,34 @@ but `search` returns nothing, the FTS index is out of sync — that is
 | Groq returns `403 error 1010` | `wiki/layer4/Err-Groq-403.md` |
 | nothing above fits | `wiki/layer4/Debug-Playbook.md` |
 
+## The skill and the references
+
+`SKILL.md` sits in the archive root. It is the full operating procedure — the
+eight-step ingest, the two query paths, the wiki page contract, the Groq
+pitfalls, the living-source rules. **Read it before your first ingest.**
+
+```bash
+cat $DOCLIB_ROOT/SKILL.md
+```
+
+`references/` holds nine deeper files. `SKILL.md` wins on any conflict.
+
+| Need | File |
+|---|---|
+| ingest detail per source type | `references/ingest-procedures.md` |
+| which collection a document belongs to | `references/collection-scope.md` |
+| the wiki page contract, with a full example | `references/wiki-page-contract.md` |
+| a book the user is reading (grows over time) | `references/living-source.md` |
+| point query vs analytical query | `references/dual-path-query.md` |
+| Persian folding and FTS5 behaviour | `references/persian-normalization.md` |
+| what `lint` checks, and what it cannot | `references/wiki-lint.md` |
+| installing a fresh archive | `references/bootstrap.md` |
+| packaging this as a portable repo | `references/portability-design.md` |
+| mirroring the archive to GitHub | `references/github-wiki-setup.md` |
+
+`SKILL.md` reads its root from `DOCLIB_ROOT` — no path is hardcoded, so it works
+wherever the archive was installed.
+
 ## Hard rules
 
 1. **Never modify anything under `raw/`.** It is the source of truth.

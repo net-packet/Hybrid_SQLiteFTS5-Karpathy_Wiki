@@ -17,6 +17,10 @@ from = "template/SCHEMA.md"
 to   = "SCHEMA.md"
 
 [[copy]]
+from = "template/SKILL.md"
+to   = "SKILL.md"
+
+[[copy]]
 from = "template/references"
 to   = "references"
 
