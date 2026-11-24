@@ -1,0 +1,50 @@
+# setup.toml — the install map. setup.py reads this and does nothing else.
+# Change this file, not setup.py, when the archive layout changes.
+
+[archive]
+default_root = "~/archive"
+schema_version = 100          # goes into PRAGMA user_version
+
+[collections]
+default = ["office-works", "maintenance-learning", "ai-learning"]
+
+[[copy]]
+from = "src/doclib.py"
+to   = "doclib.py"
+
+[[copy]]
+from = "template/SCHEMA.md"
+to   = "SCHEMA.md"
+
+[[copy]]
+from = "template/references"
+to   = "references"
+
+[[dir]]
+path = "raw/files"
+
+[[dir]]
+path = "raw/web"
+
+[[dir]]
+path = "raw/audio"
+
+[[dir]]
+path = "raw/images"
+
+[[dir]]
+path = "wiki/sources"
+
+[[dir]]
+path = "wiki/entities"
+
+[[dir]]
+path = "wiki/concepts"
+
+[[file]]
+path = "wiki/index.md"
+content = "# Index\n\n| # | Source | Type | Added |\n|---|---|---|---|\n"
+
+[[file]]
+path = "wiki/log.md"
+content = "# Log\n\n| Date | Action | Detail |\n|---|---|---|\n"
