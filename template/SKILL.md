@@ -468,6 +468,14 @@ done
 `git log` دروغ می‌گوید — یک commit می‌تواند فقط مستندات را بیاورد و کد را نه.
 `git log` lies — a commit can carry docs and not the code.
 
+**دو استثنای عمدی — اینها «ناهمگامی» نیستند / Two intentional exceptions — not drift:**
+
+1. **بخش‌های نصب فقط در `template/`:** «اگر آرشیو هنوز نصب نشده» و «این آرشیو از کجا آمده» دستور `git clone` و `setup.py` دارند. برای آرشیو نصب‌شده بی‌معنی‌اند، برای کاربر جدید ضروری. **حذفشان نکن.**
+2. **قواعد VitePress فقط در نسخهٔ زنده:** سه خطای بیلد و پیت‌فال `base` مخصوص تولید `docs/` است و به کار آرشیو مربوط نیست. **به `template/` منتقلشان نکن.**
+
+**Install sections live only in `template/`:** they carry `git clone` and `setup.py` — meaningless for an installed archive, essential for a new user. **Do not delete them.**
+**VitePress rules live only in the live copy:** the build errors and the `base` pitfall belong to `docs/` generation, not to archiving. **Do not copy them into `template/`.**
+
 ### بازبینی یکپارچگی جریان ingest در کل ریپو / Auditing ingest-flow consistency
 
 وقتی کاربر می‌گوید «مراحل ingest را در همهٔ فایل‌ها چک کن»، این نه بررسی را به ترتیب بزن. هیچ‌کدام از حافظه یا از commit message — همه از دیسک.
