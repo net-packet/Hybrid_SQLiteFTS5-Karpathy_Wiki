@@ -101,24 +101,6 @@ Anti-patterns
 | 4 | مسیر ۲ بدون `links` (صفحات متصل از دست می‌روند) / Path 2 without `links` (misses connected pages) |
 | 5 | گزارش «روند» بدون چک کردن اینکه جمع‌های اعلامی سند با هم می‌خوانند / Reporting a "trend" without first checking that the document's own stated totals add up |
 
-## گزارش تحلیلی عددی — حساب را قبل از تفسیر چک کن / Numeric Report — Check the Arithmetic Before Interpreting
-
-سؤال «روند/مقایسه/چقدر بوده» با جدول و نمودار جواب می‌گیرد، ولی **قبل از هر تفسیری** سه چک حساب را بزن. سندی که جمع ستون‌هایش با جمع کل اعلامی نمی‌خواند، مبنای رشد درصدی نیست.
-A "trend / compare / how much" question gets a table and a chart — but **before any interpretation** run three arithmetic checks. A document whose column totals disagree with its stated grand total is not a base for percentage growth.
-
-1. **جمع ستون‌ها = جمع کل اعلامی؟** اگر نه، اختلاف را به ریال/تومان بنویس و بگو کدام عدد را نمی‌توان تأیید کرد. رشد درصدی را روی عدد مشکوک نساز — یا هر دو سناریو را بده.
-   **Do the column totals equal the stated grand total?** If not, state the gap in absolute currency and say which figure you cannot vouch for. Do not build a growth percentage on the suspect figure — give both scenarios, or neither.
-2. **جمع ردیف‌ها = جمع اعلامی جدول؟** اگر برابر است، آن جدول سالم است؛ اگر نه، ردیف گم‌شده یا عدد غلط تایپی هست.
-   **Do the row values sum to the table's stated total?** Equal means the table is sound; unequal means a missing row or a typo.
-3. **آیا قاعدهٔ محاسبهٔ ستون بین سال‌ها یکی است؟** اگر نسبت یک ستون (مثلاً «تعدیل ÷ ماهانه») در یک سال ۰.۵۲ و در سال دیگر ۰.۶۱ باشد، بخشی از رشد از **تغییر نرخ** آمده نه افزایش حجم کار — این را در تفسیر جدا کن، وگرنه رشد را بیش از واقع نشان می‌دهی.
-   **Is the column's computation rule the same across years?** If a ratio (e.g. adjustment ÷ monthly) is 0.52 one year and 0.61 the next, part of the growth is a **rate change**, not more work — separate that in the interpretation or you overstate growth.
-
-**فرضیه را با داده تست کن، با منطق نه.** «ماهانه = قرارداد ÷ مدت» فرضیهٔ معقولی بود و غلط درآمد؛ نسبت `monthly/(contract/12)` بین ردیف‌ها از ۰.۴۵ تا ۲.۲۲ پراکنده بود. یک محاسبهٔ ستونی روی همهٔ ردیف‌ها این را در ۵ ثانیه نشان می‌دهد.
-**Test a hypothesis against the data, not by plausibility.** "monthly = contract ÷ duration" looked reasonable and was wrong; the ratio ranged 0.45–2.22 across rows. One column-wide calculation shows this in five seconds.
-
-**تعداد نقاط را صریح بگو.** دو سال «روند» نیست، «مقایسه» است. اگر آرشیو فقط دو سال دارد، همین را بنویس و بگو برای روند سه‌نقطه‌ای چه سندی لازم است — تفسیر دو نقطه به‌عنوان روند، ادعای بی‌پشتوانه است.
-**State the number of data points.** Two years is a comparison, not a trend. If the archive holds only two, say so and name what document would make it three — interpreting two points as a trend is an unsupported claim.
-
 ## نمودار فارسی با matplotlib / Persian Chart with matplotlib
 
 **رشتهٔ خام بده — `arabic_reshaper` و `python-bidi` را نصب نکن.** matplotlib از نسخهٔ ۳.۸ به بعد با موتور `raqm`/harfbuzz خودش حروف فارسی را می‌چسباند و راست‌به‌چپ می‌چیند. اعمال `get_display(arabic_reshaper.reshape(s))` یعنی **دو بار** شکل‌دهی: متن درست چیده می‌شود و بعد آینه می‌شود.
@@ -160,6 +142,28 @@ def crop(a):                                   # bounding box of ink only
 # same = corrcoef(mpl, pil)   mirrored = corrcoef(mpl, pil[:, ::-1])
 # PASS requires same > mirrored on EVERY label.
 ```
+
+**سنجش قطعی: کدپوینت‌ها را بخوان، نه همبستگی را.** همبستگی تصویر گمراه‌کننده است — دو رندرکننده مختلف با hinting و فاصله‌گذاری متفاوت، همبستگی پایین می‌دهند و می‌توانند جواب غلط بدهند. سنجهٔ بدون ابهام: رشته‌ای که به matplotlib می‌دهی، به ترتیب کدپوینت چیده می‌شود. پس **حرف اول و آخرِ رشته** تعیین می‌کند کدام گلیف در لبهٔ چپ و راست می‌نشیند، و می‌توانی با انتظار مقایسه کنی:
+**The decisive test: read the codepoints, not the correlation.** Image correlation misleads — two rasterizers with different hinting and spacing correlate poorly and can hand you the wrong verdict. The unambiguous measure: matplotlib lays the string out in codepoint order, so **the first and last characters** decide which glyph lands at the left and right edge, and you can compare that against expectation:
+
+```python
+import arabic_reshaper
+from bidi.algorithm import get_display
+
+word = "پرداخت"                    # logical order: پ ... ت
+wrapped = get_display(arabic_reshaper.reshape(word))
+print(hex(ord(wrapped[0])), hex(ord(wrapped[-1])))
+# correct RTL for matplotlib means the FINAL form of ت sits at the LEFT edge:
+#   wrapped[0] == 0xFE96  (ﺖ final)   and   wrapped[-1] == 0xFB58  (ﭘ isolated)
+# if instead you get پ at the left edge, the string is in logical order and
+# matplotlib will draw it right-to-left by itself — drop the reshaper.
+```
+
+**جدا از هم یا چسبیده؟ این را هم با کد ببین، نه با چشم.** یک کلمهٔ قرینه‌دار را رندر کن و ارتفاع جوهر را در نیمهٔ چپ و راست بسنج. در «کتابخانه»، ک (کشیدهٔ بلند) در چیدمان درست سمت راست است — پس سمت راست باید جوهر عمودی بیشتری داشته باشد. آینه‌کردن تصویر باید این را برعکس کند؛ اگر نکرد، سنجه معتبر نیست.
+**Joined or apart? Measure that in code too, not by eye.** Render a word with an asymmetric skeleton and compare ink height in the left and right halves. In «کتابخانه» the tall ک belongs on the right in correct RTL — so the right half must carry more vertical ink. Flipping the image must invert that; if it does not, the measure itself is not valid.
+
+**اگر پکیجی را اشتباهی نصب کردی، حذفش کن — نه اینکه فقط استفاده نکنی.** پکیجی که می‌ماند، جلسهٔ بعد دوباره import می‌شود و همان خرابی برمی‌گردد. `pip uninstall -y <pkg>` بدون `--user` روی نصب کاربر هم کار می‌کند؛ بعد ثابت کن که واقعاً رفته و نمودار **بدونش** ساخته می‌شود.
+**If you installed a package by mistake, uninstall it — do not merely stop using it.** A package that stays gets imported again next session and the same breakage returns. `pip uninstall -y <pkg>` without `--user` also removes user installs; then prove it is gone AND that the chart still builds without it.
 
 فونت وزیرماتن را با `addfont` از فایل `.ttf` بارگذاری کن؛ نیازی به نصب سیستمی نیست. **گلیف‌های Presentation Form (U+FB50–U+FEFF) را هم باید داشته باشد**، وگرنه متن دوباره می‌شکند:
 Load Vazirmatn with `addfont` straight from the `.ttf`; system install is unnecessary. **It must also carry the Presentation Forms block (U+FB50–U+FEFF)**, or the text breaks again:
