@@ -37,6 +37,27 @@ Content lint (human, not script)
 
 **Staleness:** if a source a page was built on changed, the page must be re-read and updated.
 
+## تناقض‌های عددی در صفحه — قالب / Numeric contradictions on a page — template
+
+وقتی یک سند با حساب خودش نمی‌خواند، آن را **در صفحه بنویس**، نه فقط در پاسخ به کاربر. پیام گم می‌شود؛ صفحه می‌ماند و دفعهٔ بعد که کسی (یا خودت) صفحه را می‌خواند، هشدار را می‌بیند.
+When a source disagrees with its own arithmetic, **write it on the page**, not only in the chat reply. Messages are lost; the page persists and the next reader sees the warning.
+
+بخش اختیاری `### تناقض‌های داخلی / Internal Inconsistencies` را بلافاصله قبل از `**نکات مهم**` (یا قبل از `## منابع` اگر آن بخش نیست) بگذار. سه چیز باید باشد:
+Put the optional `### Internal Inconsistencies` section just before the notes list (or before `## Sources` if there is none). It must carry three things:
+
+1. **هر دو عدد + اختلاف دقیق.** جدول کوچک: جزء، جزء، جمع اجزا، جمع اعلامی، اختلاف. خواننده باید بتواند خودش جمع بزند.
+   **Both figures plus the exact gap.** A small table: component, component, computed sum, stated total, difference — the reader must be able to re-add it.
+2. **کجا اختلاف هست، کجا نیست.** اگر همهٔ ستون‌ها با ردیف‌هایشان می‌خوانند، این را بنویس: یعنی اشکال در جمع نهایی است نه در ردیف‌ها. این تشخیص ارزش گزارش را چند برابر می‌کند.
+   **Say where the fault is and where it is not.** If every column reconciles with its rows, state that — it localizes the fault to the grand total, not the rows.
+3. **هشدار عملی برای استفادهٔ بعدی.** یک نقل‌قول کوتاه: «این عدد را به‌عنوان مقدار تأییدشده به کار نبر؛ اگر لازم شد هر دو سناریو را بده.» بدون این، نسخهٔ بعدیِ خودت دوباره همان عدد را نقل می‌کند.
+   **An actionable warning for later use.** A short quote: do not treat this figure as verified; if needed, present both scenarios. Without it, your next self quotes the same number again.
+
+**قاعدهٔ ستون با ضریب نایکنواخت را هم بنویس.** اگر عنوان ستون یک قاعده می‌گوید (مثل «تعدیل ۴۵٪») و فقط بعضی ردیف‌ها آن را رعایت می‌کنند، جدول انحراف‌ها را بیاور: هر ردیف، مقدار ثبت‌شده، مقدار مورد انتظار، اختلاف با علامت. این نشان می‌دهد ستون مشتق است ولی از یک قاعدهٔ واحد، پس مقایسهٔ بین‌سالی روی آن معتبر نیست.
+**Record columns whose multiplier is not uniform too.** If a column's heading states a rule (e.g. "adjustment 45%") and only some rows obey it, table the deviations: row, recorded value, expected value, signed difference. It proves the column is derived but not by one rule, so year-over-year comparison on it is invalid.
+
+**اعداد داخل این بخش را بعد از نوشتن دوباره حساب کن.** عنوان بخش و جدول زیرش باید یک عدد بدهند؛ اختلاف یک‌ریالی بین تیتر و جدول، همان دسته خطایی است که این بخش برای گرفتنش ساخته شد.
+**Re-compute the figures inside this section after writing it.** The heading and the table beneath it must agree; a one-rial difference between heading and table is exactly the class of error the section exists to catch.
+
 ## دستور `links` (برای سؤال‌های مسیر ۲)
 
 Links command (for Path 2 queries)

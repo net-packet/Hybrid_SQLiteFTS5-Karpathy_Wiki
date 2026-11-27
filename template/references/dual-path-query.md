@@ -100,6 +100,18 @@ Anti-patterns
 | 3 | مسیر ۲ بدون خواندن `index.md` اول (صفحات مرتبط از دست می‌روند) / Path 2 without reading `index.md` first (misses relevant pages) |
 | 4 | مسیر ۲ بدون `links` (صفحات متصل از دست می‌روند) / Path 2 without `links` (misses connected pages) |
 | 5 | گزارش «روند» بدون چک کردن اینکه جمع‌های اعلامی سند با هم می‌خوانند / Reporting a "trend" without first checking that the document's own stated totals add up |
+| 6 | باز کردن فایل خام وقتی صفحهٔ ویکی همان جدول را با ارجاع دارد / Opening the raw file when the wiki page already carries the same table with a citation |
+
+## اگر صفحهٔ ویکی جدول را دارد، به `raw/` نرو / If the wiki page has the table, do not go to `raw/`
+
+سؤال تحلیلی جوابش در صفحهٔ ویکی است — صفحه با همان جدول و با ارجاع به فایل خام. رفتن سراغ PDF برای «اطمینان بیشتر» **پیشرفت نیست**: همان داده است، با هزینهٔ بیشتر و ریسک بیشتر. قاعدهٔ مسیر ۲ یعنی ویکی **نقطهٔ اتکا** است، نه نقطهٔ شروع برای پرش به جای دیگر.
+An analytical question is answered on the wiki page — the same table, with a citation to the raw file. Going to the PDF for "more confidence" is **not progress**: it is the same data at higher cost and higher risk. Path 2 means the wiki is the **point of reliance**, not a springboard to somewhere else.
+
+**تشخیص این اشتباه:** بپرس «آیا صفحهٔ ویکی این ستون‌ها را دارد؟» اگر بله، همان را بخوان و همین‌جا جمع بزن. اگر نه، **اول یک‌خط بنویس که چه چیزی در ویکی نیست** و بعد برو سراغ خام — تا پرش ثبت شود، نه اینکه پنهان بماند.
+**How to catch the mistake:** ask "does the wiki page already carry these columns?" If yes, read it and do the arithmetic there. If no, **state in one line what is missing from the wiki** before going to the raw file — so the jump is on the record instead of hidden.
+
+**از توابع مشتق خودکار استفاده نکن مگر لازم باشد.** جمع زدن چند عدد یک خط پایتون است؛ ساختن تابع در `doclib.py` برای آن، ابزارسازی بی‌مورد است و قاعده را از «قابل خواندن» به «وابسته به کد» می‌برد. تابع فقط وقتی لازم است که **تکرار مکانیکی** داشته باشیم (ده‌ها فایل، هر بار `lint`)، نه وقتی یک سند را می‌خوانیم. کاربر این تفکیک را صریح خواسته: عمدهٔ کار روی مدل، حساب ساده هم روی مدل.
+**Do not build a derived helper unless it is needed.** Adding a handful of numbers is one line of Python; a function in `doclib.py` for it is needless tooling and shifts the rule from readable to code-dependent. A helper earns its place only under **mechanical repetition** (dozens of files, every `lint`), not when reading one document. The user asked for this split explicitly: the bulk of the work on the model, simple arithmetic on the model too.
 
 ## نمودار فارسی با matplotlib / Persian Chart with matplotlib
 
